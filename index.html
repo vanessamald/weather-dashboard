@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- City Search Button-->
+    <div class="card">
+        <h3 class="card-header text-uppercase">Search for a City:</h3>
+        <form id="city-form" class="card-body">
+          
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="city"
+          />
+        </form>
+        <button type="submit" class="btn" id="search-btn">Search</button>
+      </div>
+
+      <!-- Display Weather Data Container-->
+      <div class="col-12 col-md-8">
+        <h2 class="subtitle">
+          Showing Weather for: <span></span>
+        </h2>
+        <div id="day-forecast" class="list-group"></div>
+      </div>
+    
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
