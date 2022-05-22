@@ -5,8 +5,10 @@ var searchBtn = document.getElementById('search-btn')
 var dayForecastContainer = document.querySelector('#day-forecast')
 
 // DOM elements to display weather
+var cityName1 = document.querySelector(".city-name1")
+
 var icon = document.querySelector(".icon")
-var city = document.querySelector(".city-name")
+var cityName = document.querySelector(".city-name")
 var date = document.querySelector(".date");
 var temperature = document.querySelector(".temp")
 var wind = document.querySelector(".wind")
@@ -50,8 +52,9 @@ var getWeather = function(city) {
       })
     .then((data) => {
         console.log(data);
+
         // display city name
-        city.textContent = data.name;
+        cityName.textContent = data.name;
 
         //display date 
 
@@ -60,13 +63,13 @@ var getWeather = function(city) {
        // icon.innerHTML = data.weather[0].icon; 
 
         // display temp in farenheit
-        temperature.textContent =  Math.floor(data.main.temp - kelvin)* 1.8 + 32 + "°F";
+        temperature.textContent =  "Temperature: " + Math.floor((data.main.temp - kelvin)* 1.8 + 32) + "°F";
 
         // display wind 
-        wind.textContent = data.wind.speed + " mph";
+        wind.textContent = "Wind: " + data.wind.speed + " mph";
 
         // display humidity
-        humidity.textContent = data.main.humidity;
+        humidity.textContent = "Humidity: " + data.main.humidity;
         
     });  
         // alert if there is an error
@@ -106,10 +109,13 @@ var getForecast = function(city) {
         .then((data) => {
             console.log(data);
             console.log(data.list[6]);
-            //for (var i=0; i > data.lenght; i++) {
+            console.log(data.city.name);
+            console.log(data.list[6].dt_txt)
 
+            for (var i=6; i < 10; i++) {
+                //console.log(data.list[i]);
             // display city name
-            city.textContent = data.city.name;
+            cityName1.textContent = data.city.name;
 
             //display date 
             //date1.textContent = data.list[6].dt_txt;
@@ -118,14 +124,14 @@ var getForecast = function(city) {
             // icon.innerHTML = data.weather[0].icon; 
         
             // display temp in farenheit
-            temp1.textContent = "Temperature: " + Math.floor(data.list[6].main.temp - kelvin)* 1.8 + 32 + "°F";
+            temp1.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin)* 1.8 + 32) + "°F";
         
             // display wind 
-            wind1.textContent = "Wind: " + data.list[6].wind.speed + " mph";
+            wind1.textContent = "Wind: " + data.list[i].wind.speed + " mph";
         
             // display humidity
-            humid1.textContent = "Humidity: " + data.list[6].main.humidity;
-    //}
+            humid1.textContent = "Humidity: " + data.list[i].main.humidity;
+    }
 })
 };
 
