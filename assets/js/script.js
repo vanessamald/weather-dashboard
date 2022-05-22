@@ -13,6 +13,12 @@ var wind = document.querySelector(".wind")
 var humidity = document.querySelector(".humidity")
 const kelvin = 273;
 
+// DOM elements for 5 day forecast
+var date1 = document.querySelector(".date1");
+var temp1 = document.querySelector(".temp1")
+var humid1 = document.querySelector(".humid1")
+var wind1 = document.querySelector(".wind1")
+
 var weatherArray = [];
 
 
@@ -98,7 +104,28 @@ var getForecast = function(city) {
         return response.json();
       })
         .then((data) => {
-        console.log(data);
+            console.log(data);
+            console.log(data.list[6]);
+            //for (var i=0; i > data.lenght; i++) {
+
+            // display city name
+            city.textContent = data.city.name;
+
+            //display date 
+            //date1.textContent = data.list[6].dt_txt;
+        
+            //display weather icon
+            // icon.innerHTML = data.weather[0].icon; 
+        
+            // display temp in farenheit
+            temp1.textContent = "Temperature: " + Math.floor(data.list[6].main.temp - kelvin)* 1.8 + 32 + "°F";
+        
+            // display wind 
+            wind1.textContent = "Wind: " + data.list[6].wind.speed + " mph";
+        
+            // display humidity
+            humid1.textContent = "Humidity: " + data.list[6].main.humidity;
+    //}
 })
 };
 
