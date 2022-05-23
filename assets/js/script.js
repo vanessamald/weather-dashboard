@@ -4,24 +4,26 @@ var cityFormEl = document.querySelector('#city-form')
 var searchBtn = document.getElementById('search-btn')
 var dayForecastContainer = document.querySelector('#day-forecast')
 
-// DOM elements to display weather
+// DOM elements to display current weather
 var cityName1 = document.querySelector(".city-name1")
 var weatherDate = document.querySelector(".date");
 var displayicon1 = document.querySelector(".icon")
 var cityName = document.querySelector(".city-name")
-//var date = document.querySelector(".date");
 var temperature = document.querySelector(".temp")
 var wind = document.querySelector(".wind")
 var humidity = document.querySelector(".humidity")
+
+// kelvin variable to convert temperature
 const kelvin = 273;
 
-// top cities btn DOM
+// top cities buttons 
 var topCityBtn = document.querySelector("#top-city-btn");
+var topCityBtn2 = document.querySelector("#top-city-btn2");
+var topCityBtn3 = document.querySelector("#top-city-btn3");
+var topCityBtn4 = document.querySelector("#top-city-btn4");
 
 // forecast container to append elements to 
 var forecast = document.querySelector("#forecast")
-
-//var weatherArray = [];
 
 // function to get city input from user
 var formSubmitHandler = function(event) {
@@ -52,6 +54,9 @@ var getWeather = function(city) {
     .then((data) => {
         console.log(data);
 
+        // clear icon after each search 
+        displayicon1.textContent = "";
+
         // display city name
         cityName.textContent = data.name;
 
@@ -68,10 +73,8 @@ var getWeather = function(city) {
         weatherDate.textContent = time;
         console.log(time);
 
-        //display weather icon TESTING
-        // icon.innerHTML = data.weather[0].icon; 
+        //display current weather icon 
         var weatherIcon = document.createElement("img");
-        //weatherIcon.classList = "float-right";
         var image1 = data.weather[0].icon; 
         weatherIcon.src = "http://openweathermap.org/img/wn/" + image1 + ".png";
 
@@ -86,19 +89,8 @@ var getWeather = function(city) {
 
         // append weather icon 
         displayicon1.appendChild(weatherIcon);
-        
-    });  
-        // alert if there is an error
-        //} else {
-            //alert('Error: ' + response.statusText);
-        };
-    //})
-   
-    //.catch(function(error) {
-        // this `.catch()` getting chained onto the end of the `.then()` method
-       // alert("Unable to connect to Open Weather Map");
-   // });
-//};
+       });  
+    };
 
 // click event
 searchBtn.addEventListener("click", formSubmitHandler);
@@ -112,25 +104,24 @@ var getForecast = function(city) {
         return response.json();
       })
         .then((data) => {
-            console.log(data);
-            //console.log(data.list[6]);
-            console.log(data.city.name);
+            //console.log(data);
+            //console.log(data.city.name);
 
-            // clear content TESTING
+            // clear content
             forecast.textContent = "";
 
+            // loop through data to display 5 day weather forecast
             for (var i=0; i < 40; i+=8) {
             console.log(data.list[i]);
-            //console.log(data.list[i].dt_txt);
 
             // create a container to display 5 day forecast
             var forecastContainer = document.createElement("div");
             forecastContainer.classList = "card text-white bg-info mb-3 col" ;
             var date = new Date(data.list[i].dt_txt).toLocaleDateString();
             forecastContainer.textContent = date;
-            console.log(date);
+            //console.log(date);
 
-
+            // convert temperature to farenheit
             var forecastTemp = document.createElement("li");
             forecastTemp.classList = "flex-row align-center";
             forecastTemp.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin) * 1.80 + 32) + "°F";
@@ -163,34 +154,38 @@ var getForecast = function(city) {
           })
         };
 
-// function to display popular cities 
-
-   // var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
-   // var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
+// function to display top city weather
 var cityBtn = function(event) {
-		var data = event.target.getAttribute("data");
+  console.log("CLICK WORKS");
+	var data = event.target.getAttribute("data");
+
+  
 	if (data == 'la') {
     const city = 'los angeles';
 		console.log("TESTING LA CLICK")
     getWeather(city);
     getForecast(city);
-	}
-	if (data == 'new-york') {
+  }
+	if (data == 'newyork') {
 		console.log("TESTING NEW YORK CLICK");
-    //const city = 'new york';
-    //getWeather(city);
-    //getForecast(city);
-		//displayStock(stockArray, [1]);
+    const city = 'new york';
+    getWeather(city);
+    getForecast(city);
 	}
 	if (data == 'chicago') {
-		console.log("TESTING CHICAGO CLICK")
-		//displayStock(stockArray, [2]);
+		console.log("TESTING CHICAGO CLICK");
+    const city = 'chicago';
+    getWeather(city);
+    getForecast(city);
 	}
 	if (data == 'houston') {
 		console.log("TESTING HOUSTON CLICK")
-		//displayStock(stockArray, [3]);
-  
-	}   
-  
+    const city = 'houston';
+    getWeather(city);
+    getForecast(city);
+	}    
 } 
 topCityBtn.addEventListener("click", cityBtn);
+topCityBtn2.addEventListener("click", cityBtn);
+topCityBtn3.addEventListener("click", cityBtn);
+topCityBtn4.addEventListener("click", cityBtn);
