@@ -4,8 +4,19 @@ var cityFormEl = document.querySelector('#city-form')
 var searchBtn = document.getElementById('search-btn')
 var dayForecastContainer = document.querySelector('#day-forecast')
 
+// search history
+var searchHistoryEl = document.querySelector("#search-history");
+var cityHistory = JSON.parse(localStorage.getItem('cityHistory'));
+//testing
+var historyBtn = document.querySelector("#historyBtn");
+
+var searched = JSON.parse(localStorage.getItem('city'));
+//var userHistory = JSON.stringify(cityArray.splice(','));
+
+
+
 // DOM elements to display current weather
-var cityName1 = document.querySelector(".city-name1")
+//var cityName1 = document.querySelector(".city-name1")
 var weatherDate = document.querySelector(".date");
 var displayicon1 = document.querySelector(".icon")
 var cityName = document.querySelector(".city-name")
@@ -26,12 +37,41 @@ var topCityBtn5 = document.querySelector("#top-city-btn5");
 // forecast container to append elements to 
 var forecast = document.querySelector("#forecast")
 
+var cityArray = [];
+
 // function to get city input from user
 var formSubmitHandler = function(event) {
   event.preventDefault();
   // get value from input element
   var city = citySearchEl.value.trim();
   console.log(city);
+
+  // create an array of user search history
+  cityArray.push(city); 
+  console.log(cityArray);
+    // local storage 
+        var userHistory = JSON.stringify(cityArray.splice(','));
+        localStorage.setItem('city', userHistory); 
+        var searched = JSON.parse(localStorage.getItem('city'));
+        console.log(searched);
+
+        // create a list of user city history search
+        var cityList = document.createElement("a");
+        cityList.classList = "card text-white bg-info mb-3 col";
+        cityList.setAttribute = ("id", "historyBtn");
+        cityList.textContent = searched;
+
+        searchHistoryEl.appendChild(cityList);
+
+        //var historyBtn = document.querySelector("#historyBtn");
+
+        //historyBtn.addEventListener("click", getWeather);
+
+       
+        
+
+       
+            
   if (city) {
       getWeather(city);
       getForecast(city);
@@ -55,8 +95,11 @@ var getWeather = function(city) {
     .then((data) => {
         console.log(data);
 
+        // add city searches to local storage TESTING HERE
+        //localStorage.setItem('cityHistory', JSON.stringify(city));
+
         // clear icon after each search 
-        displayicon1.textContent = "";
+        displayicon1.textContent = ""; // TESTING HERE 
 
         // display city name
         cityName.textContent = data.name;
@@ -77,7 +120,7 @@ var getWeather = function(city) {
         //display current weather icon 
         var weatherIcon = document.createElement("img");
         var image1 = data.weather[0].icon; 
-        weatherIcon.src = "http://openweathermap.org/img/wn/" + image1 + ".png";
+        weatherIcon.src = "https://openweathermap.org/img/wn/" + image1 + ".png";
 
         // display temp in farenheit
         temperature.textContent =  "Temperature: " + Math.floor((data.main.temp - kelvin)* 1.8 + 32) + "°F";
@@ -98,7 +141,7 @@ searchBtn.addEventListener("click", formSubmitHandler);
 
 // get 5 day forecast
 var getForecast = function(city) {
-    var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
 
     fetch(forecastUrl)
         .then((response) => {
@@ -198,3 +241,74 @@ topCityBtn2.addEventListener("click", cityBtn);
 topCityBtn3.addEventListener("click", cityBtn);
 topCityBtn4.addEventListener("click", cityBtn);
 topCityBtn5.addEventListener("click", cityBtn);
+
+// TESTING FOR HISTORY 
+var searchClick = function() {
+  //for (i=0; i > 5; i++) {
+  let city = searched;
+  getWeather(city);
+  //}
+};
+
+searchHistoryEl.addEventListener("click", searchClick);
+
+
+
+// local storage TESTING
+//var history = JSON.stringify(cityArray);
+//localStorage.setItem('city', JSON.stringify(cityArray));
+//var searched = JSON.parse(localStorage.getItem('city'));
+//console.log(searched);
+//var searchValues = JSON.parse(localStorage.getItem('city'));
+
+
+//var cities = [];
+
+//var cities = {
+    //city: cityHistory
+//};
+
+//cityArray.push(cityHistory);
+//console.log(cityArray);
+//var cities = [];//JSON.parse(localStorage.getItem('cityHistory')) || [];
+//cities.push(cityHistory);
+
+//var cities = cityHistory || [];
+//cities.push(citySearchEl);
+//searchHistoryEl.innertext = cities;
+
+//searchHistoryEl.innerText = cityHistory;
+/*
+
+var userHistory = document.createElement("li");
+userHistory.classList = "card text-white bg-info mb-3 col";
+userHistory.textContent = cityArray;
+
+searchHistoryEl.appendChild(userHistory);
+*/
+
+//city.push(cities);
+
+//cities.push(city);
+//localStorage.setItem('city', JSON.stringify(cities));
+//console.log(cityArray);
+//localstorage.setItem("city", JSON.stringify(city));
+//var searchHistory = JSON.parse(localStorage.getItem("city"));
+//var searchHistory = localStorage.getItem('city');
+//var searchHistory = JSON.parse(localStorage.getItem('history'));
+/*
+city.innerText = history;
+
+// object with username and score info
+var cityHistory = {
+    city: city
+};
+//add object to high scores array
+searchHistory.push(cityHistory);
+console.log(cityHistory);
+*/
+
+//localStorage.setItem('history', JSON.stringify(searchHistory));
+
+//localstorage.city = JSON.stringify();
+//var storedNames = JSON.parse(localStorage.names);
