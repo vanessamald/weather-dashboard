@@ -9,7 +9,7 @@ var cityName1 = document.querySelector(".city-name1")
 
 //var icon = document.querySelector(".icon1")
 var cityName = document.querySelector(".city-name")
-var date = document.querySelector(".date");
+//var date = document.querySelector(".date");
 var temperature = document.querySelector(".temp")
 var wind = document.querySelector(".wind")
 var humidity = document.querySelector(".humidity")
@@ -124,22 +124,36 @@ var getForecast = function(city) {
       })
         .then((data) => {
             console.log(data);
-            console.log(data.list[6]);
+            //console.log(data.list[6]);
             console.log(data.city.name);
-            console.log(data.list[6].dt_txt)
-
-            for (var i=0; i < 5; i++) {
-                //console.log(data.list[i]);
+            
+            for (var i=2; i < 40; i+=8) {
+                console.log(data.list[i]);
+                //console.log(data.list[i].dt_txt);
 
             // create a container to display 5 day forecast
             var forecastContainer = document.createElement("div");
             forecastContainer.classList = "card text-white bg-info mb-3 col" ;
-            forecastContainer.textContent = "Temperature: " + Math.floor(9/5 *(data.list[i].main.temp - kelvin)+ 32) + "°F";
+            forecastContainer.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin) * 1.80 + 32) + "°F";
 
+            /*
             //display date 
-            var date = document.createElement("li");
-            date.classList = "flex-row align-center";
-            date.textContent = data.list[i].dt_txt;
+            var dateList = document.createElement("li");
+            dateList.classList = "flex-row align-center";
+            const dateDisplay = new Date (data.list[i].dt_txt);
+            const date1 = dateDisplay.getDate();
+            dateList.textContent = date1;
+            console.log(date1);
+            */
+
+            // TESTING DATE 
+            var dateList = document.createElement("li");
+            dateList.classList = "flex-row align-center";
+            var date = new Date(data.list[i].dt_txt).toLocaleDateString();
+            dateList.textContent = date;
+            console.log(date);
+
+             
 
             //display weather icon
             var icondisplay = document.createElement("img");
@@ -160,7 +174,7 @@ var getForecast = function(city) {
             humidity.textContent = "Humidity: " + data.list[i].main.humidity;
 
             // append to container
-            forecastContainer.appendChild(wind, humidity, date, icondisplay);
+            forecastContainer.appendChild(wind, humidity, dateList, icondisplay);
             
             // append container to the dom
             forecast.appendChild(forecastContainer);
