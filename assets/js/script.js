@@ -105,19 +105,19 @@ var getForecast = function(city) {
         return response.json();
       })
         .then((data) => {
-            //console.log(data);
+            console.log(data);
             //console.log(data.city.name);
 
             // clear content
             forecast.textContent = "";
 
             // loop through data to display 5 day weather forecast
-            for (var i=0; i < 40; i+=8) {
+            for (var i=5; i < 40; i+=8) {
             console.log(data.list[i]);
 
             // create a container to display 5 day forecast
             var forecastContainer = document.createElement("div");
-            forecastContainer.classList = "card text-white bg-info mb-3 col" ;
+            forecastContainer.classList = "card text-white bg-info mb-3 col";
             var date = new Date(data.list[i].dt_txt).toLocaleDateString();
             forecastContainer.textContent = date;
             //console.log(date);
