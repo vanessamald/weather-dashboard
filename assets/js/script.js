@@ -66,12 +66,7 @@ var formSubmitHandler = function(event) {
         //var historyBtn = document.querySelector("#historyBtn");
 
         //historyBtn.addEventListener("click", getWeather);
-
        
-        
-
-       
-            
   if (city) {
       getWeather(city);
       getForecast(city);
@@ -242,6 +237,7 @@ topCityBtn3.addEventListener("click", cityBtn);
 topCityBtn4.addEventListener("click", cityBtn);
 topCityBtn5.addEventListener("click", cityBtn);
 
+/*
 // TESTING FOR HISTORY 
 var searchClick = function() {
   //for (i=0; i > 5; i++) {
@@ -251,64 +247,4 @@ var searchClick = function() {
 };
 
 searchHistoryEl.addEventListener("click", searchClick);
-
-
-
-// local storage TESTING
-//var history = JSON.stringify(cityArray);
-//localStorage.setItem('city', JSON.stringify(cityArray));
-//var searched = JSON.parse(localStorage.getItem('city'));
-//console.log(searched);
-//var searchValues = JSON.parse(localStorage.getItem('city'));
-
-
-//var cities = [];
-
-//var cities = {
-    //city: cityHistory
-//};
-
-//cityArray.push(cityHistory);
-//console.log(cityArray);
-//var cities = [];//JSON.parse(localStorage.getItem('cityHistory')) || [];
-//cities.push(cityHistory);
-
-//var cities = cityHistory || [];
-//cities.push(citySearchEl);
-//searchHistoryEl.innertext = cities;
-
-//searchHistoryEl.innerText = cityHistory;
-/*
-
-var userHistory = document.createElement("li");
-userHistory.classList = "card text-white bg-info mb-3 col";
-userHistory.textContent = cityArray;
-
-searchHistoryEl.appendChild(userHistory);
 */
-
-//city.push(cities);
-
-//cities.push(city);
-//localStorage.setItem('city', JSON.stringify(cities));
-//console.log(cityArray);
-//localstorage.setItem("city", JSON.stringify(city));
-//var searchHistory = JSON.parse(localStorage.getItem("city"));
-//var searchHistory = localStorage.getItem('city');
-//var searchHistory = JSON.parse(localStorage.getItem('history'));
-/*
-city.innerText = history;
-
-// object with username and score info
-var cityHistory = {
-    city: city
-};
-//add object to high scores array
-searchHistory.push(cityHistory);
-console.log(cityHistory);
-*/
-
-//localStorage.setItem('history', JSON.stringify(searchHistory));
-
-//localstorage.city = JSON.stringify();
-//var storedNames = JSON.parse(localStorage.names);
