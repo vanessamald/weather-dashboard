@@ -15,41 +15,13 @@ var wind = document.querySelector(".wind")
 var humidity = document.querySelector(".humidity")
 const kelvin = 273;
 
-/*
-// DOM elements for 5 day forecast
-var date1 = document.querySelector(".date1");
-var temp1 = document.querySelector(".temp1")
-var humid1 = document.querySelector(".humid1")
-var wind1 = document.querySelector(".wind1")
+// top cities btn DOM
+var topCityBtn = document.querySelector("#top-city-btn");
 
-var date2 = document.querySelector(".date2");
-var temp2 = document.querySelector(".temp2")
-var humid2 = document.querySelector(".humid2")
-var wind2 = document.querySelector(".wind2")
-
-var date3 = document.querySelector(".date3");
-var temp3 = document.querySelector(".temp3")
-var humid3 = document.querySelector(".humid3")
-var wind3 = document.querySelector(".wind3")
-
-
-var date4 = document.querySelector(".date4");
-var temp4 = document.querySelector(".temp4")
-var humid4 = document.querySelector(".humid4")
-var wind4 = document.querySelector(".wind4")
-
-
-var date5 = document.querySelector(".date5");
-var temp5 = document.querySelector(".temp5")
-var humid5 = document.querySelector(".humid5")
-var wind5 = document.querySelector(".wind5")
-*/
-
-// TESTING CREATING ELEMENTS
+// forecast container to append elements to 
 var forecast = document.querySelector("#forecast")
 
-var weatherArray = [];
-
+//var weatherArray = [];
 
 // function to get city input from user
 var formSubmitHandler = function(event) {
@@ -192,27 +164,33 @@ var getForecast = function(city) {
         };
 
 // function to display popular cities 
-var topCities = function() {
-    getWeather();
-    getForecast();
-}
 
-/*
-// TESTING CONVERTING DATE STAMP 
-function timeConverter(){
-  var a = new Date(data.dt * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-  return time;
+   // var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
+   // var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d7e25feadbb98d58fea6663edfb99b38";
+var cityBtn = function(event) {
+		var data = event.target.getAttribute("data");
+	if (data == 'la') {
+    const city = 'los angeles';
+		console.log("TESTING LA CLICK")
+    getWeather(city);
+    getForecast(city);
+	}
+	if (data == 'new-york') {
+		console.log("TESTING NEW YORK CLICK");
+    //const city = 'new york';
+    //getWeather(city);
+    //getForecast(city);
+		//displayStock(stockArray, [1]);
+	}
+	if (data == 'chicago') {
+		console.log("TESTING CHICAGO CLICK")
+		//displayStock(stockArray, [2]);
+	}
+	if (data == 'houston') {
+		console.log("TESTING HOUSTON CLICK")
+		//displayStock(stockArray, [3]);
   
-}
-console.log(timeConverter());
-*/
-
-
+	}   
+  
+} 
+topCityBtn.addEventListener("click", cityBtn);
