@@ -6,8 +6,8 @@ var dayForecastContainer = document.querySelector('#day-forecast')
 
 // DOM elements to display weather
 var cityName1 = document.querySelector(".city-name1")
-
-//var icon = document.querySelector(".icon1")
+var weatherDate = document.querySelector(".date");
+var displayicon1 = document.querySelector(".icon")
 var cityName = document.querySelector(".city-name")
 //var date = document.querySelector(".date");
 var temperature = document.querySelector(".temp")
@@ -83,11 +83,25 @@ var getWeather = function(city) {
         // display city name
         cityName.textContent = data.name;
 
-        //display date 
+        // convert unix date (from stackoverflow)
+        var a = new Date(data.dt * 1000);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        weatherDate.textContent = time;
+        console.log(time);
 
-
-        //display weather icon
-       // icon.innerHTML = data.weather[0].icon; 
+        //display weather icon TESTING
+        // icon.innerHTML = data.weather[0].icon; 
+        var weatherIcon = document.createElement("img");
+        //weatherIcon.classList = "float-right";
+        var image1 = data.weather[0].icon; 
+        weatherIcon.src = "http://openweathermap.org/img/wn/" + image1 + ".png";
 
         // display temp in farenheit
         temperature.textContent =  "Temperature: " + Math.floor((data.main.temp - kelvin)* 1.8 + 32) + "°F";
@@ -97,6 +111,9 @@ var getWeather = function(city) {
 
         // display humidity
         humidity.textContent = "Humidity: " + data.main.humidity;
+
+        // append weather icon 
+        displayicon1.appendChild(weatherIcon);
         
     });  
         // alert if there is an error
@@ -127,40 +144,29 @@ var getForecast = function(city) {
             //console.log(data.list[6]);
             console.log(data.city.name);
 
+            // clear content TESTING
+            forecast.textContent = "";
+
             for (var i=0; i < 40; i+=8) {
-                console.log(data.list[i]);
-                //console.log(data.list[i].dt_txt);
+            console.log(data.list[i]);
+            //console.log(data.list[i].dt_txt);
 
             // create a container to display 5 day forecast
             var forecastContainer = document.createElement("div");
             forecastContainer.classList = "card text-white bg-info mb-3 col" ;
-            forecastContainer.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin) * 1.80 + 32) + "°F";
-
-            //display date 
-            var dateList = document.createElement("li");
-            dateList.classList = "flex-row align-center";
-            const dateDisplay = new Date (data.list[i].dt_txt);
-            const date1 = dateDisplay.getDate();
-            dateList.textContent = date1;
-            console.log(date1);
-            
-
-            // TESTING DATE 
-            var dateList = document.createElement("li");
-            dateList.classList = "flex-row align-center";
             var date = new Date(data.list[i].dt_txt).toLocaleDateString();
-            dateList.textContent = date;
+            forecastContainer.textContent = date;
             console.log(date);
 
-             
+
+            var forecastTemp = document.createElement("li");
+            forecastTemp.classList = "flex-row align-center";
+            forecastTemp.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin) * 1.80 + 32) + "°F";
 
             //display weather icon
             var icondisplay = document.createElement("img");
             var icon = data.list[i].weather[0].icon; 
             icondisplay.src = "http://openweathermap.org/img/wn/" + icon + ".png";
-            //console.log(icon);
-            //var iconurl = "http://openweathermap.org/img/wn/" + icon + ".png";
-            //icondisplay.innerhtml = iconurl;
             
             // display wind
             var wind = document.createElement("li");
@@ -173,8 +179,8 @@ var getForecast = function(city) {
             humidity.textContent = "Humidity: " + data.list[i].main.humidity;
 
             // append to container
-            forecastContainer.appendChild(dateList);
             forecastContainer.appendChild(icondisplay);
+            forecastContainer.appendChild(forecastTemp);
             forecastContainer.appendChild(wind);
             forecastContainer.appendChild(humidity);
             
@@ -182,11 +188,31 @@ var getForecast = function(city) {
             forecast.appendChild(forecastContainer);
 
             }  
-            
-            //clear old content
-            //forecastContainer.textContent = "";
           })
         };
 
+// function to display popular cities 
+var topCities = function() {
+    getWeather();
+    getForecast();
+}
+
+/*
+// TESTING CONVERTING DATE STAMP 
+function timeConverter(){
+  var a = new Date(data.dt * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+  
+}
+console.log(timeConverter());
+*/
 
 
