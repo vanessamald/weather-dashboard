@@ -126,8 +126,8 @@ var getForecast = function(city) {
             console.log(data);
             //console.log(data.list[6]);
             console.log(data.city.name);
-            
-            for (var i=2; i < 40; i+=8) {
+
+            for (var i=0; i < 40; i+=8) {
                 console.log(data.list[i]);
                 //console.log(data.list[i].dt_txt);
 
@@ -136,7 +136,6 @@ var getForecast = function(city) {
             forecastContainer.classList = "card text-white bg-info mb-3 col" ;
             forecastContainer.textContent = "Temperature: " + Math.floor((data.list[i].main.temp - kelvin) * 1.80 + 32) + "°F";
 
-            /*
             //display date 
             var dateList = document.createElement("li");
             dateList.classList = "flex-row align-center";
@@ -144,7 +143,7 @@ var getForecast = function(city) {
             const date1 = dateDisplay.getDate();
             dateList.textContent = date1;
             console.log(date1);
-            */
+            
 
             // TESTING DATE 
             var dateList = document.createElement("li");
@@ -157,11 +156,11 @@ var getForecast = function(city) {
 
             //display weather icon
             var icondisplay = document.createElement("img");
-            
             var icon = data.list[i].weather[0].icon; 
-            console.log(icon);
-            var iconurl = "http://openweathermap.org/img/wn/" + icon + ".png";
-            icondisplay.innerhtml = iconurl;
+            icondisplay.src = "http://openweathermap.org/img/wn/" + icon + ".png";
+            //console.log(icon);
+            //var iconurl = "http://openweathermap.org/img/wn/" + icon + ".png";
+            //icondisplay.innerhtml = iconurl;
             
             // display wind
             var wind = document.createElement("li");
@@ -170,15 +169,22 @@ var getForecast = function(city) {
 
             // display humidity
             var humidity = document.createElement("li");
-            humidity.classList = "unstyled";
+            humidity.classList = "flex-row align-center";
             humidity.textContent = "Humidity: " + data.list[i].main.humidity;
 
             // append to container
-            forecastContainer.appendChild(wind, humidity, dateList, icondisplay);
+            forecastContainer.appendChild(dateList);
+            forecastContainer.appendChild(icondisplay);
+            forecastContainer.appendChild(wind);
+            forecastContainer.appendChild(humidity);
             
             // append container to the dom
             forecast.appendChild(forecastContainer);
-            }        
+
+            }  
+            
+            //clear old content
+            //forecastContainer.textContent = "";
           })
         };
 
