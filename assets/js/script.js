@@ -21,6 +21,7 @@ var topCityBtn = document.querySelector("#top-city-btn");
 var topCityBtn2 = document.querySelector("#top-city-btn2");
 var topCityBtn3 = document.querySelector("#top-city-btn3");
 var topCityBtn4 = document.querySelector("#top-city-btn4");
+var topCityBtn5 = document.querySelector("#top-city-btn5");
 
 // forecast container to append elements to 
 var forecast = document.querySelector("#forecast")
@@ -183,9 +184,17 @@ var cityBtn = function(event) {
     const city = 'houston';
     getWeather(city);
     getForecast(city);
-	}    
+	}   
+if (data == 'seattle') {
+	console.log("TESTING SEATTLE CLICK")
+  const city = 'seattle';
+  getWeather(city);
+  getForecast(city);
+	}  
 } 
+// click event for top cities
 topCityBtn.addEventListener("click", cityBtn);
 topCityBtn2.addEventListener("click", cityBtn);
 topCityBtn3.addEventListener("click", cityBtn);
 topCityBtn4.addEventListener("click", cityBtn);
+topCityBtn5.addEventListener("click", cityBtn);
