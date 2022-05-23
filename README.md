@@ -13,4 +13,7 @@ Create a Weather Dashboard that displays current weather and 5 day forecast
 - WHEN I click on a city in the search history
 - THEN I am again presented with current and future conditions for that city
 <br>
+https://vanessamald.github.io/weather-dashboard/
+<br>
+<br>
 <img src="assets/images/weatherdashboard.jpg">
