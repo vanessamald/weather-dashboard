@@ -33,11 +33,12 @@
 
       <!-- additional search buttons-->
         <br>
-          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn" data="la">Los Angeles</button>
-          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn2" data="newyork">New York</button>
-          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn3" data="chicago">Chicago</button>
-          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn4" data="houston">Houston</button>
-          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn5" data="seattle">Seattle</button>
+        <h3 class="text-center">Top Cities</h3>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn" data="la">Los Angeles</button>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn2" data="newyork">New York</button>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn3" data="chicago">Chicago</button>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn4" data="houston">Houston</button>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="top-city-btn5" data="seattle">Seattle</button>
       </div>
       <!-- search buttons end-->
 
@@ -69,6 +70,10 @@
       <div>
         <p class="humidity"></p>
       </div>
+
+      <div class="float-md-right">
+        <p class="uvi"></p>
+      </div>
     </div>
   </div>
 </div>
@@ -77,8 +82,12 @@
 <!-- Search History Bar-->
 <div class="container">
   <h4> Search History</h4>
-  <div id="search-history" class="container column d-flex flex-wrap"> 
-
+  <div id="search-history" class="d-flex flex-wrap"> 
+    <ul>
+      <li class="history1"></li>
+      <li class="history2"></li>
+      <li class="history3"></li>
+    </ul>
   </div>
 </div>
 <!-- Search History End-->

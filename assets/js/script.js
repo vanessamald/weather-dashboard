@@ -23,6 +23,7 @@ var cityName = document.querySelector(".city-name")
 var temperature = document.querySelector(".temp")
 var wind = document.querySelector(".wind")
 var humidity = document.querySelector(".humidity")
+var uvi = document.querySelector(".uvi");
 
 // kelvin variable to convert temperature
 const kelvin = 273;
@@ -48,13 +49,17 @@ var formSubmitHandler = function(event) {
 
   // create an array of user search history
   cityArray.push(city); 
-  console.log(cityArray);
+  //console.log(cityArray);
     // local storage 
-        var userHistory = JSON.stringify(cityArray.splice(','));
+        var userHistory = JSON.stringify((cityArray).slice(','));
         localStorage.setItem('city', userHistory); 
         var searched = JSON.parse(localStorage.getItem('city'));
         console.log(searched);
 
+        var storedCities = searched; //.splice(',');
+        searchHistoryEl.textContent = storedCities + " ";
+
+        /*
         // create a list of user city history search
         var cityList = document.createElement("a");
         cityList.classList = "card text-white bg-info mb-3 col";
@@ -62,6 +67,7 @@ var formSubmitHandler = function(event) {
         cityList.textContent = searched;
 
         searchHistoryEl.appendChild(cityList);
+        */
 
         //var historyBtn = document.querySelector("#historyBtn");
 
@@ -93,8 +99,16 @@ var getWeather = function(city) {
         // add city searches to local storage TESTING HERE
         //localStorage.setItem('cityHistory', JSON.stringify(city));
 
+        // get lat and lon for city searched
+        var lat = data.coord.lat; 
+        var lon = data.coord.lon;
+        console.log(lat);
+        console.log(lon);
+        // use lat and lon to fetch uvi info 
+        getUvIndex(lat, lon);
+
         // clear icon after each search 
-        displayicon1.textContent = ""; // TESTING HERE 
+        displayicon1.textContent = "";  
 
         // display city name
         cityName.textContent = data.name;
@@ -105,10 +119,7 @@ var getWeather = function(city) {
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        var time = date + ' ' + month + ' ' + year + ' ' ;
         weatherDate.textContent = time;
         console.log(time);
 
@@ -124,7 +135,7 @@ var getWeather = function(city) {
         wind.textContent = "Wind: " + data.wind.speed + " mph";
 
         // display humidity
-        humidity.textContent = "Humidity: " + data.main.humidity;
+        humidity.textContent = "Humidity: " + data.main.humidity + "%";
 
         // append weather icon 
         displayicon1.appendChild(weatherIcon);
@@ -246,5 +257,31 @@ var searchClick = function() {
   //}
 };
 
-searchHistoryEl.addEventListener("click", searchClick);
+cityList.addEventListener("click", searchClick);
 */
+
+// uv index function
+var getUvIndex = function(lat, lon) {
+  var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=d7e25feadbb98d58fea6663edfb99b38";
+
+    // make a request to the url
+    fetch(uvUrl)
+    .then((response) => {
+        return response.json();
+      })
+    .then((data) => {
+        console.log(data);
+    
+      // display uvi
+      const uvdisplay = data.current.uvi;
+      uvi.textContent = "UVI: " + uvdisplay;
+
+      // add color indicator for uvi
+      if ( uvdisplay > 5) {
+        uvi.classList.add("red-uvi");
+      }
+      if (uvdisplay < 5) {
+        uvi.classList.add("green-uvi");
+      }
+  })
+};
