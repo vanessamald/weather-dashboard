@@ -190,7 +190,6 @@ var getForecast = function(city) {
             
             // append container to the dom
             forecast.appendChild(forecastContainer);
-
             }  
           })
         };
