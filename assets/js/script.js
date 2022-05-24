@@ -7,16 +7,9 @@ var dayForecastContainer = document.querySelector('#day-forecast')
 // search history
 var searchHistoryEl = document.querySelector("#search-history");
 var cityHistory = JSON.parse(localStorage.getItem('cityHistory'));
-//testing
-var historyBtn = document.querySelector("#historyBtn");
-
 var searched = JSON.parse(localStorage.getItem('city'));
-//var userHistory = JSON.stringify(cityArray.splice(','));
-
-
 
 // DOM elements to display current weather
-//var cityName1 = document.querySelector(".city-name1")
 var weatherDate = document.querySelector(".date");
 var displayicon1 = document.querySelector(".icon")
 var cityName = document.querySelector(".city-name")
@@ -38,6 +31,7 @@ var topCityBtn5 = document.querySelector("#top-city-btn5");
 // forecast container to append elements to 
 var forecast = document.querySelector("#forecast")
 
+// array of search history
 var cityArray = [];
 
 // function to get city input from user
@@ -45,33 +39,33 @@ var formSubmitHandler = function(event) {
   event.preventDefault();
   // get value from input element
   var city = citySearchEl.value.trim();
-  console.log(city);
+  //console.log(city);
 
   // create an array of user search history
   cityArray.push(city); 
   //console.log(cityArray);
-    // local storage 
-        var userHistory = JSON.stringify((cityArray).slice(','));
+        
+        // local storage 
+        var userHistory = JSON.stringify((cityArray).splice(','));
         localStorage.setItem('city', userHistory); 
         var searched = JSON.parse(localStorage.getItem('city'));
-        console.log(searched);
-
-        var storedCities = searched; //.splice(',');
-        searchHistoryEl.textContent = storedCities + " ";
-
-        /*
-        // create a list of user city history search
-        var cityList = document.createElement("a");
-        cityList.classList = "card text-white bg-info mb-3 col";
-        cityList.setAttribute = ("id", "historyBtn");
-        cityList.textContent = searched;
-
+        //console.log(searched);
+        var storedCities = searched;
+        
+        // create buttons for city history 
+        var cityList = document.createElement("button");
+        cityList.classList = "btn btn-outline-success my-2 my-sm-0";
         searchHistoryEl.appendChild(cityList);
-        */
+        cityList.innerHTML = storedCities 
 
-        //var historyBtn = document.querySelector("#historyBtn");
-
-        //historyBtn.addEventListener("click", getWeather);
+        // function for user to be able to get weather via search history
+        cityList.onclick = function(){
+        console.log("Clicked!");
+        const city = storedCities;
+        getWeather(city);
+        getForecast(city);
+        };
+     
        
   if (city) {
       getWeather(city);
@@ -96,9 +90,6 @@ var getWeather = function(city) {
     .then((data) => {
         console.log(data);
 
-        // add city searches to local storage TESTING HERE
-        //localStorage.setItem('cityHistory', JSON.stringify(city));
-
         // get lat and lon for city searched
         var lat = data.coord.lat; 
         var lon = data.coord.lon;
@@ -121,7 +112,7 @@ var getWeather = function(city) {
         var date = a.getDate();
         var time = date + ' ' + month + ' ' + year + ' ' ;
         weatherDate.textContent = time;
-        console.log(time);
+        //console.log(time);
 
         //display current weather icon 
         var weatherIcon = document.createElement("img");
@@ -154,7 +145,7 @@ var getForecast = function(city) {
         return response.json();
       })
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             //console.log(data.city.name);
 
             // clear content
@@ -247,18 +238,6 @@ topCityBtn2.addEventListener("click", cityBtn);
 topCityBtn3.addEventListener("click", cityBtn);
 topCityBtn4.addEventListener("click", cityBtn);
 topCityBtn5.addEventListener("click", cityBtn);
-
-/*
-// TESTING FOR HISTORY 
-var searchClick = function() {
-  //for (i=0; i > 5; i++) {
-  let city = searched;
-  getWeather(city);
-  //}
-};
-
-cityList.addEventListener("click", searchClick);
-*/
 
 // uv index function
 var getUvIndex = function(lat, lon) {
